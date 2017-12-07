@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>小球的物理变化</title>
+</head>
+<body>
+<canvas id="ball" style="display: block;margin: 0 auto;border: 1px solid;"></canvas>
+<script>
+    /**
+     * 可以无限运动 这是在绝对没有任何摩擦系数的环境下原型的
+     * @type {{x: number, y: number, r: number, g: number, vx: number, vy: number, color: string}}
+     */
+    var ball = {x:512,y:100,r:20,g:4,vx:-6,vy:6,color:"#005588"};//vy:<0 会有上抛运动，vx>0向右
+    window.onload = function () {
+        var canvas = document.getElementById('ball');
+        canvas.width = 1024;
+        canvas.height = 768;
+
+        var ctx = canvas.getContext('2d');
+        console.log(ctx)
+
+        setInterval(function () {
+           render(ctx);
+           update();
+        },50);
+    }
+    
+    function update() {
+        ball.x +=ball.vx;
+        ball.y +=ball.vy;
+        ball.vy += ball.g;
+
+//下边缘
+        if(ball.y>768-ball.r){
+            ball.y = 768-ball.r;
+            ball.vy = -ball.vy;
+        }
+        //上边缘
+        if(ball.y<ball.r){
+            ball.y = ball.r;
+            ball.vy = -ball.vy;
+        }
+        //左边缘
+        if(ball.x < ball.r-ball.vx){
+            ball.x = ball.r;
+            ball.vx = -ball.vx;
+        }
+//右
+        if(ball.x>1024-ball.r ){
+            ball.x = 1024-ball.r;
+            ball.vx = -ball.vx;
+        }
+
+    }
+
+    function render(ctx) {
+        ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+        
+        ctx.fillStyle = ball.color;
+        ctx.beginPath();
+        ctx.arc(ball.x,ball.y,ball.r,0,2*Math.PI,false);
+        ctx.closePath();
+        
+        ctx.fill();
+    }
+    
+</script>
+</body>
+</html>

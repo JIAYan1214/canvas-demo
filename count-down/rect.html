@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>rect</title>
+</head>
+<body>
+<canvas id="timers" width="1024" height="300" style="display: block;margin: 0 auto"></canvas>
+<div>
+    <h2>气泡</h2>
+    <canvas id="paopao" width="1024" height="300" style="display: block;margin: 0 auto">></canvas>
+</div>
+</body>
+<script>
+window.onload = function () {
+    let canvas = document.getElementById('timers');
+    if(canvas.getContext){
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle = "rgb(200,0,0)";
+        ctx.fillRect (10, 10, 55, 50);
+
+        ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+        ctx.fillRect (30, 30, 55, 50);
+
+         ctx.moveTo(100,100);
+         ctx.lineTo(300,300);
+         ctx.stroke();
+
+
+         ctx.fillRect(100,100,200,100);
+
+         ctx.strokeRect(105,105,120,30);
+
+         ctx.clearRect(120,120,160,60);
+//实心三角形
+        ctx.beginPath();
+        ctx.moveTo(100,50);
+        ctx.lineTo(125,75);
+        ctx.lineTo(125,25);
+        ctx.fill();//实心填充会自动闭合
+        //轮廓
+
+        ctx.beginPath();
+        ctx.moveTo(175,50);
+        ctx.lineTo(200,75);
+        ctx.lineTo(200,25);
+        ctx.closePath();
+        ctx.stroke();//stroke不会自动闭合，所以需要closePath
+
+        //绘制笑脸
+        ctx.beginPath();
+        ctx.arc(50,350,30,0,Math.PI*2,false);//圆
+        ctx.stroke();
+        ctx.closePath();
+        //ctx.moveTo(20,350);
+        ctx.beginPath();
+        ctx.arc(50,350,20,0,Math.PI,false);
+        ctx.stroke();
+        ctx.closePath();
+        //ctx.moveTo(25,350);
+        ctx.beginPath();
+        ctx.arc(40,345,5,0,Math.PI*2,false);
+        ctx.stroke();
+        ctx.closePath();
+        //ctx.moveTo(35,345);
+        ctx.beginPath();
+        ctx.arc(60,345,5,0,Math.PI*2,false);
+        //ctx.moveTo(60,345);
+        ctx.stroke();
+        ctx.closePath();
+
+
+
+    }else{
+        canvas.innerHTML = '当前浏览器不支持canvas，请换高版本浏览器';
+    }
+
+
+    var c = document.getElementById('paopao');
+    if(c.getContext){
+        let ca = c.getContext('2d');
+        ca.beginPath();
+        ca.beginPath();
+        ca.moveTo(75,25);
+        ca.quadraticCurveTo(25,25,25,62.5);
+        ca.quadraticCurveTo(25,100,50,100);
+        ca.quadraticCurveTo(50,120,30,125);
+        ca.quadraticCurveTo(60,120,65,100);
+        ca.quadraticCurveTo(125,100,125,62.5);
+        ca.quadraticCurveTo(125,25,75,25);
+        ca.stroke();
+    }
+}
+</script>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>圆</title>
+</head>
+<body>
+<canvas id="canvas" width="800" height="400" style="display: block;margin: 0 auto;border: 1px solid #dddddd;"></canvas>
+<script>
+    window.onload= function () {
+        var can = document.getElementById('canvas');
+
+        if (can.getContext) {
+            var ctx = can.getContext('2d');
+
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = '#005588';
+            for (var j = 0; j < 3; j++) {
+                for (var i = 0; i < 10; i++) {
+                    ctx.beginPath();
+                    ctx.arc(10 + i * 50, 60 + j * 50, 20, 0, 2 * Math.PI * (i + 1) / 10);
+
+                    if (j == 1) {
+                        ctx.closePath();//闭合形状
+                    }
+                    if (j / 2) {
+                        ctx.stroke();
+                    } else {
+                        ctx.fill();
+                    }
+                }
+            }
+
+            //怪物
+            ctx.fillStyle = "black";
+            ctx.beginPath();
+            ctx.arc(600, 200, 60, Math.PI/7,-Math.PI/7, false);
+            ctx.lineTo(570,200);
+            ctx.fill();
+
+        }
+    }
+</script>
+</body>
+</html>
