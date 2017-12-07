@@ -7,14 +7,29 @@ var MARGIN_TOP = 30;
 var balls = [];//存储小球
 const colors = ["#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000"];
 
-const endDate = new Date(2017,11,10,18,59,59);
+const endDate = new Date(2017,11,10,18,59,59);//小时只能有两位
+endDate.setTime(endDate.getTime() + 3600*1000);//1970-1-1开始的毫秒数  //距离当前时间再完后推一个小时
+
+
 var curShowTimeSeconds = 0;
 
 window.onload = function () {
+
+    //屏幕适应
+
+    WINDOW_WIDTH = document.body.clientWidth;
+    WINDOW_HEIGHT = document.body.clientHeight;//并不能保证页面能盛满页面，所以去页面修改；
+
+    MARGIN_LEFT = Math.round(WINDOW_WIDTH/10);
+    Radius = Math.round(WINDOW_WIDTH*4/5/108)-1;
+    MARGIN_TOP = Math.round(WINDOW_HEIGHT/10);
+
     var canvas = document.getElementById('canvas');
 
     canvas.width = WINDOW_WIDTH;
     canvas.height = WINDOW_HEIGHT;
+
+
 
     var ctx = canvas.getContext('2d');
 
@@ -80,17 +95,28 @@ function update() {
  */
 function updateBalls() {
 
-    for(let i=0;i<balls.length;i++){
+    for(let i=0;i<balls.length;i++) {
         balls[i].x += balls[i].vx;
         balls[i].y += balls[i].vy;
         balls[i].vy += balls[i].speed;
 
         //下边缘碰撞检测
-        if(balls[i].y >= WINDOW_HEIGHT-Radius){
-            balls[i].y = WINDOW_HEIGHT-Radius;
-            balls[i].vy = -balls[i].vy*0.75;//0.8摩擦系数
+        if (balls[i].y >= WINDOW_HEIGHT - Radius) {
+            balls[i].y = WINDOW_HEIGHT - Radius;
+            balls[i].vy = -balls[i].vy * 0.75;//0.8摩擦系数
         }
     }
+//维护小球的数量，小球走出屏幕时不保留
+    var cnt = 0
+    for( var i = 0 ; i < balls.length ; i ++ )
+        //左边缘和右边缘
+        if( balls[i].x + Radius > 0 && balls[i].x -Radius < WINDOW_WIDTH )
+            balls[cnt++] = balls[i]//cnt始终是小于等于i的，把存在屏幕中的元素放在数组的前面，流出的放在后面
+
+    while( balls.length > cnt ){
+        balls.pop();//删除数组的最后一个元素
+    }
+
 }
 
 /**
@@ -120,9 +146,13 @@ function getBallWithColor(x,y,num) {
 function getCurrentShowTimeSeconds() {
 
     var curTime = new  Date();
-    var endTime = endDate.getTime() - curTime.getTime();
+    /*var endTime = endDate.getTime() - curTime.getTime();
+    * return Math.round(endTime/1000) >=0 ? Math.round(endTime/1000) : 0;
+    * */
+    var endTime = curTime.getHours()*3600+ curTime.getMinutes()*60+curTime.getSeconds();
 
-    return Math.round(endTime/1000) >=0 ? Math.round(endTime/1000) : 0;
+    return endTime;
+
 }
 
 /**
