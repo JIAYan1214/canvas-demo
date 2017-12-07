@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>color七色板</title>
+</head>
+<body>
+<canvas id="canvas" width="800" height="800" style="display: block;margin: 0 auto">当前浏览器不支持，请更换最新的</canvas>
+<script>
+
+    var arr = [{p:[{x:0, y:0}, {x:800, y:0}, {x:400, y:400}], color:'#caff67'},
+        {p:[{x:0, y:0}, {x:400, y:400}, {x:0, y:800}], color:'#67becf'},
+        {p:[{x:800, y:0}, {x:800, y:400}, {x:600, y:600}, {x:600, y:200}], color:'#ef3d61'},
+        {p:[{x:600, y:200}, {x:600, y:600}, {x:400, y:400}], color:'#f9f51a'},
+        {p:[{x:400, y:400}, {x:600, y:600}, {x:400, y:800}, {x:200, y:600}], color:'#a594c0'},
+        {p:[{x:200, y:600}, {x:400, y:800}, {x:0, y:800}], color:'#fa8ecc'},
+        {p:[{x:800, y:400}, {x:800, y:800}, {x:400, y:800}], color:'#f6ca29'}
+        ];
+    window.onload = function () {
+        var can = document.getElementById('canvas');
+        if (can.getContext) {
+            var ctx = can.getContext('2d');
+            for (var i = 0; i < arr.length; i++) {
+                draw(ctx, arr[i]);
+            }
+        }
+    }
+
+    function draw(ctx,point) {
+        ctx.beginPath();
+        ctx.moveTo(point.p[0].x,point.p[0].y);
+        for(var j = 1;j<point.p.length;j++){
+            ctx.lineTo(point.p[j].x,point.p[j].y);
+        }
+        ctx.closePath();
+        ctx.fillStyle = point.color;
+        ctx.fill();
+
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+    }
+</script>
+</body>
+</html>
