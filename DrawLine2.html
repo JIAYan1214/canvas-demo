@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DrawLine</title>
+</head>
+<body>
+<canvas id="canvas" style="border:1px solid #aaa;display:block;margin:50px auto;">
+    当前浏览器不支持Canvas，请更换浏览器后再试
+</canvas>
+
+<script>
+    window.onload = function(){
+
+        var canvas = document.getElementById("canvas");
+
+        canvas.width = 800;
+        canvas.height = 800;
+
+        var context = canvas.getContext('2d');
+
+        context.lineWidth=10;
+        context.strokeStyle = '#058';
+
+
+
+
+
+
+
+        context.beginPath();
+        context.lineTo(50,50);
+        context.lineTo(300,50);
+        context.lineCap = "butt";
+        context.stroke();
+
+
+        context.beginPath();
+        context.lineTo(50,150);
+        context.lineTo(300,150);
+        context.lineCap = "round";
+        context.stroke();
+
+        context.beginPath();
+        context.lineTo(50,300);
+        context.lineTo(300,300);
+        context.lineCap = "square";
+
+
+        context.stroke();
+
+
+        context.beginPath();
+        context.lineWidth=2;
+        context.strokeStyle = '#ddd';
+        context.lineTo(50,50);
+        context.lineTo(50,500);
+        context.lineCap = "butt";
+        context.stroke();
+
+        context.beginPath();
+        context.lineTo(300,50);
+        context.lineTo(300,500);
+        context.lineCap = "butt";
+        context.stroke();
+
+
+
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DrawArrow</title>
+</head>
+<body>
+<canvas id="canvas" style="border:1px solid #aaa;display:block;margin:50px auto;">
+    当前浏览器不支持Canvas，请更换浏览器后再试
+</canvas>
+
+<script>
+    window.onload = function(){
+
+        var canvas = document.getElementById("canvas");
+
+        canvas.width = 800;
+        canvas.height = 800;
+
+        var context = canvas.getContext('2d');
+
+        context.beginPath();
+
+        context.moveTo(50,150);
+
+        context.lineTo(200,150);
+        context.lineTo(200,50);
+        context.lineTo(300,200);
+
+        context.lineTo(200,350);
+        context.lineTo(200,250);
+        context.lineTo(50,250);
+
+        context.closePath();
+        context.lineWidth=10;
+        context.strokeStyle = '#058';
+        context.fillStyle = 'yellow';
+        context.fill();
+
+
+        //50,400
+        context.moveTo(50,400);
+        context.lineTo(100,500);
+        context.lineTo(50,600);
+
+        context.moveTo(150,400);
+        context.lineTo(200,500);
+        context.lineTo(150,600);
+
+        context.moveTo(250,400);
+        context.lineTo(300,500);
+        context.lineTo(250,600);
+
+        context.stroke();
+
+
+
+    }
+</script>
+</body>
+</html>
