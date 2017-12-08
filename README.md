@@ -39,3 +39,14 @@
      bevel在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
      miter 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域default
      miterLimit = num;miter相互使用的 默认值是10
+
+## 图形的变换
+
+>   位移 translate(x,y)   如果有多个位移，由于canvas是覆盖的，所以多个位移会逐个地往后叠加；避免这个问题，位移后再位移去；由于这样太过于繁琐，
+
+      canvas又提供了很好的解决位移叠加的方案，ctx.save();ctx.restore();成对出现；绘制之前先save()，绘制结束之后再恢复restore();这俩个事保存canvas绘图状态的方法；
+
+
+
+    旋转 rotate(deg)
+    缩放 scale(sx,sy)

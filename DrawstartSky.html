@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DrawLine</title>
+</head>
+<body style="height: 100%;padding: 0;margin: 0;">
+<canvas id="canvas" style="width: 100%;height: 100%;">
+    当前浏览器不支持Canvas，请更换浏览器后再试
+</canvas>
+
+<script>
+var width = 1024,height= 768;
+    window.onload = function(){
+
+        var canvas = document.getElementById("canvas");
+
+        width = document.body.clientWidth;
+        height = document.body.clientHeight;
+
+        canvas.width = width;
+        canvas.height = height;
+
+        var context = canvas.getContext('2d');
+
+        //绘制矩形
+        context.fillStyle = "black";
+        context.fillRect(0,0,canvas.width,canvas.height);
+
+
+        var x = 20,y = 30,Radius = 10,radius = 6;
+
+        for(let i = 0;i< 200 ;i++){
+            let Radius = Math.random()*10+10;//10-20 之间的随机数
+            let x = Math.random()*canvas.width;
+            let y = Math.random()*canvas.height;
+            let rotate = Math.random()*360;
+            //存在的问题；星星溢出屏幕的，星星叠加
+            drawStart(context,Radius,x,y,rotate);
+        }
+
+
+
+    }
+    //save（），restore（）状态保存与恢复
+
+    function drawStart(context,Radius,x,y,rotate) {
+        context.save();
+        startPath(context);//绘制标准的五角星
+
+        //绘制在x,y，大小为R,旋转角度的五角星
+
+
+
+
+        context.restore();
+
+    }
+//绘制标准的五角星
+    function startPath(ctx) {
+        ctx.beginPath();
+        for(let i =0;i<5;i++){
+            ctx.lineTo(Math.cos((18+i*72)/180*Math.PI),-Math.sin((18+i*72)/180*Math.PI));
+            ctx.lineTo(Math.cos((54+i*72 )/180*Math.PI),-Math.sin((54+i*72)/180*Math.PI));
+        }
+        ctx.closePath();
+
+        ctx.lineWidth = 1;
+        ctx.fillStyle = '#fb3';
+        ctx.strokeStyle = '#fd5';
+        ctx.stroke();
+        ctx.fill();
+    }
+
+
+
+
+</script>
+</body>
+</html>

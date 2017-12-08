@@ -7,11 +7,22 @@ var MARGIN_TOP = 30;
 var balls = [];//存储小球
 const colors = ["#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000"];
 
-const endDate = new Date(2017,11,10,18,59,59);
+const endDate = new Date();
+endDate.setTime(endDate.getTime()+3600*1000);//一个小时倒计时
 var curShowTimeSeconds = 0;
 
 window.onload = function () {
     var canvas = document.getElementById('canvas');
+
+    WINDOW_WIDTH = document.body.clientWidth;
+    WINDOW_HEIGHT = document.body.clientHeight;
+
+    MARGIN_LEFT = Math.round(WINDOW_WIDTH/10);
+
+    Radius = Math.round(WINDOW_WIDTH*4/5/108)-1;
+
+    MARGIN_TOP = Math.round(WINDOW_HEIGHT/5);
+
 
     canvas.width = WINDOW_WIDTH;
     canvas.height = WINDOW_HEIGHT;
@@ -79,7 +90,7 @@ function update() {
  * 小球运动
  */
 function updateBalls() {
-
+    let cont = 0;
     for(let i=0;i<balls.length;i++){
         balls[i].x += balls[i].vx;
         balls[i].y += balls[i].vy;
@@ -91,6 +102,21 @@ function updateBalls() {
             balls[i].vy = -balls[i].vy*0.75;//0.8摩擦系数
         }
     }
+    //优化，因为每次绘制的时候，已经流出屏幕的小球仍然在数组内
+    //有边缘center+半径
+
+    for(let i =0;i<balls.length;i++){
+        if(balls[i].x+Radius > 0 && balls[i].x - Radius>WINDOW_WIDTH){
+            balls[cont++] = balls [i];//符合规则的小球放在数组的前面，cnt和i相等说明小球全部在屏幕内
+        }
+
+    }
+
+
+    while (balls.length >cont ){
+        balls.pop();
+    }
+
 }
 
 /**
@@ -120,9 +146,11 @@ function getBallWithColor(x,y,num) {
 function getCurrentShowTimeSeconds() {
 
     var curTime = new  Date();
-    var endTime = endDate.getTime() - curTime.getTime();
+    /*var endTime = endDate.getTime() - curTime.getTime();*///定时的效果
+    //时钟的效果
+    var hours = curTime.getHours()*3600+curTime.getMinutes()*60+curTime.getSeconds();
 
-    return Math.round(endTime/1000) >=0 ? Math.round(endTime/1000) : 0;
+    return hours;//Math.round(endTime/1000) >=0 ? Math.round(endTime/1000) : 0
 }
 
 /**

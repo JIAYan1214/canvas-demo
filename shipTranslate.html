@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DrawLine</title>
+</head>
+<body>
+<canvas id="canvas" style="border:1px solid #aaa;display:block;margin:50px auto;">
+    当前浏览器不支持Canvas，请更换浏览器后再试
+</canvas>
+
+<script>
+    window.onload = function(){
+
+        var canvas = document.getElementById("canvas");
+
+        canvas.width = 800;
+        canvas.height = 800;
+
+        var context = canvas.getContext('2d');
+        /*
+        //由于canvas绘制状态是叠加的，
+        context.translate(200,200);
+        context.fillRect(0,0,100,200);
+
+        context.translate(300,300);
+        context.fillRect(0,0,100,200);*/
+
+        //解决状态叠加的问题
+        //1.位移过去在位移回来
+        //2.使用状态保存save()和状态恢复restore()
+
+        context.save();
+        context.beginPath();
+        context.translate(100,100);
+        context.fillRect(0,0,100,100);
+        context.closePath();
+        context.restore();
+
+        context.save();
+        context.beginPath();
+        context.translate(200,200);
+        context.fillRect(0,0,200,200);
+        context.closePath();
+        context.restore();
+
+
+    }
+
+</script>
+</body>
+</html>
