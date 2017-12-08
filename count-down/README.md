@@ -34,11 +34,13 @@
      fill()：填充路径内容生成实心内容
 
    3.绘制圆或者弧形
-   
+
      1.beginPath();新建路径
      2.arc(x,y,半径，起始角度，结束角度，绘画方向)//绘画方向：false顺时针，true逆时针=====起始角度/结束角度：指的是弧度，而不是确切的角度；弧度=radians=(Math.PI/180)*旋转角度；x,y代表圆心位置
      3.moveTo(x,y):移动哪里开始
+
    4.二次贝塞尔曲线及三次贝塞尔曲线
+
      quadraticCurveTo(cp1x, cp1y, x, y)
      绘制二次贝塞尔曲线，cp1x,cp1y为一个控制点，x,y为结束点。
      bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)

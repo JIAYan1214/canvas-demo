@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DrawLine</title>
+</head>
+<body>
+<canvas id="canvas" style="border:1px solid #aaa;display:block;margin:50px auto;">
+    当前浏览器不支持Canvas，请更换浏览器后再试
+</canvas>
+
+<script>
+
+    window.onload = function(){
+        var canvas = document.getElementById("canvas");
+
+        canvas.width = 800;
+        canvas.height = 800;
+
+        var context = canvas.getContext('2d');
+        var x = 20,y = 30,Radius = 10,radius = 6;
+        drawStart(context,radius,Radius,x,y)
+
+    }
+
+    function drawStart(context,radius,Radius,x,y) {
+        context.beginPath();
+        for(let i =0;i<5;i++){
+            context.lineTo(Math.cos((18+i*72)/180*Math.PI)*Radius+x,-Math.sin((18+i*72)/180*Math.PI)*Radius+ y);
+            context.lineTo(Math.cos((54+i*72)/180*Math.PI)*radius+x,-Math.sin((54+i*72)/180*Math.PI)*radius + y);
+        }
+        context.closePath();
+
+        context.lineWidth = 1;
+        context.fillStyle = 'yellow';
+        context.stroke();
+        context.fill();
+    }
+
+
+
+
+
+</script>
+</body>
+</html>

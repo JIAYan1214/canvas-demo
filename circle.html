@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DrawLine</title>
+</head>
+<body>
+<canvas id="canvas" style="border:1px solid #aaa;display:block;margin:50px auto;">
+    当前浏览器不支持Canvas，请更换浏览器后再试
+</canvas>
+
+<script>
+    var Radius = 10,space = 20;
+    window.onload = function(){
+        var canvas = document.getElementById("canvas");
+
+        canvas.width = 800;
+        canvas.height = 800;
+
+        var context = canvas.getContext('2d');
+
+        renderCircle(20,30,context);
+
+
+    }
+    function renderCircle(x,y,ctx) {
+        ctx.fillStyle = "rgb(0,102,153)";
+        for(let i = 0;i<7;i++){
+            for(let j = 0;j<5;j++){
+                    ctx.beginPath();
+                    //(x,y)=>(2j*(R+z)+(R+x),2i*(R+z)+(R+z)+y)R:半径，z是圆到正方形的边界；圆在正方形且不接触正方形
+                    ctx.arc(x+2*j*(Radius+space)+(Radius+space),y+(Radius+space)+(Radius+space)*i*2,Radius,0,2*Math.PI,false);
+                    ctx.closePath();
+                    ctx.fill();
+            }
+        }
+
+
+    }
+
+</script>
+</body>
+</html>
