@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress ALL -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,6 +12,7 @@
 
 <script>
 var width = 1024,height= 768;
+var scale = 0.5;
     window.onload = function(){
 
         var canvas = document.getElementById("canvas");
@@ -27,14 +29,13 @@ var width = 1024,height= 768;
         context.fillStyle = "black";
         context.fillRect(0,0,canvas.width,canvas.height);
 
-
-        var x = 20,y = 30,Radius = 10,radius = 6;
+        let Radius = 20;
 
         for(let i = 0;i< 200 ;i++){
             let Radius = Math.random()*10+10;//10-20 之间的随机数
-            let x = Math.random()*canvas.width;
-            let y = Math.random()*canvas.height;
-            let rotate = Math.random()*360;
+            var x = Math.random()*canvas.width;
+            var y = Math.random()*canvas.height;
+            var rotate = Math.random()*360;
             //存在的问题；星星溢出屏幕的，星星叠加
             drawStart(context,Radius,x,y,rotate);
         }
@@ -43,33 +44,41 @@ var width = 1024,height= 768;
 
     }
     //save（），restore（）状态保存与恢复
-
+let i =0;
     function drawStart(context,Radius,x,y,rotate) {
+
         context.save();
-        startPath(context);//绘制标准的五角星
-
+        let R = Radius;
+        let r = scale*Radius;
         //绘制在x,y，大小为R,旋转角度的五角星
+        context.translate(x,y);
+
+        context.rotate(rotate/180*Math.PI);
+        startPath(context,R,r);//绘制标准的五角星
 
 
 
+        context.lineWidth = 1;
+        context.fillStyle = '#fb3';
+        context.strokeStyle = '#fd5';
+        context.lineJoin = 'round';
+        context.stroke();
+        context.fill();
 
         context.restore();
 
     }
 //绘制标准的五角星
-    function startPath(ctx) {
+    function startPath(ctx,R,r) {
         ctx.beginPath();
         for(let i =0;i<5;i++){
-            ctx.lineTo(Math.cos((18+i*72)/180*Math.PI),-Math.sin((18+i*72)/180*Math.PI));
-            ctx.lineTo(Math.cos((54+i*72 )/180*Math.PI),-Math.sin((54+i*72)/180*Math.PI));
+            ctx.lineTo(Math.cos((18+i*72)/180*Math.PI)*R,-Math.sin((18+i*72)/180*Math.PI)*R);
+            ctx.lineTo(Math.cos((54+i*72 )/180*Math.PI)*r,-Math.sin((54+i*72)/180*Math.PI)*r);
         }
         ctx.closePath();
 
-        ctx.lineWidth = 1;
-        ctx.fillStyle = '#fb3';
-        ctx.strokeStyle = '#fd5';
-        ctx.stroke();
-        ctx.fill();
+
+
     }
 
 
