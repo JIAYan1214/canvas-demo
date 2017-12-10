@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ROTATE的用法</title>
+</head>
+<body>
+<h2>rotate(deg)是以圆心为中心进行顺时针旋转；旋转角度是以弧度为单位的；radians=(Math.PI/180)*degrees</h2>
+<canvas id="canvas" style="display: block;margin: 0 auto;"></canvas>
+<script>
+    window.onload = function () {
+        let canvas = document.getElementById('canvas');
+        canvas.width = 800;
+        canvas.height = 800;
+        let ctx = canvas.getContext('2d');
+        draw(ctx);
+    }
+
+    function draw(ctx) {
+        ctx.translate(75, 75);
+
+        for (var i = 1; i < 6; i++) { // Loop through rings (from inside to out)
+            ctx.save();
+            ctx.fillStyle = 'rgb(' + (51 * i) + ',' + (255 - 51 * i) + ',255)';
+
+            for (var j = 0; j < i * 6; j++) { // draw individual dots
+                ctx.rotate(Math.PI * 2 / (i * 6));
+                ctx.beginPath();
+                ctx.arc(0, i * 12.5, 5, 0, Math.PI * 2, true);
+                ctx.fill();
+            }
+
+            ctx.restore();
+        }
+    }
+
+</script>
+</body>
+</html>

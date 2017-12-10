@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>transform的用法</title>
+</head>
+<body>
+<h2>transform的用法</h2>
+<p></br>transform(m11, m12, m21, m22, dx, dy)
+    m11：水平方向的缩放;
+    m12：水平方向的偏移;
+    m21：竖直方向的偏移;
+    m22：竖直方向的缩放;
+    dx：水平方向的移动;
+    dy：竖直方向的移动;</br>
+    </br>setTransform(m11, m12, m21, m22, dx, dy)这个方法会把当前的矩阵变化为单位矩阵，然后使用相同的参数调用transform，如果任意一个参数为无限大，那么这个矩阵也为无限大，否则会抛出异常；简单说，该方法取消了当前图形的变形，然后设定为指定的变形</b>
+    </br>resetTransform（）；重置当前图形的变换；与transform（1，0，0，1，0，0）；是同样的效果</p>
+<canvas id="canvas" style="display: block;margin: 0 auto;"></canvas>
+<script>
+    window.onload = function () {
+        let canvas = document.getElementById('canvas');
+        canvas.width = 800;
+        canvas.height = 800;
+        let ctx = canvas.getContext('2d');
+        draw(ctx);
+    }
+
+    function draw(ctx) {
+        var sin = Math.sin(Math.PI/6);
+        var cos = Math.cos(Math.PI/6);
+        ctx.translate(100, 100);
+        var c = 0;
+        for (var i=0; i <= 12; i++) {
+            c = Math.floor(255 / 12 * i);
+            ctx.fillStyle = "rgb(" + c + "," + c + "," + c + ")";
+            ctx.fillRect(0, 0, 100, 10);
+            ctx.transform(cos, sin, -sin, cos, 0, 0);
+        }
+
+        ctx.setTransform(-1, 0, 0, 1, 100, 100);
+        ctx.fillStyle = "rgba(255, 128, 255, 0.5)";
+        ctx.fillRect(0, 50, 100, 100);
+    }
+
+</script>
+</body>
+</html>

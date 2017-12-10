@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>clip的用法</title>
+</head>
+<body>
+<h2>之前已经了解了fill；stroke两种绘制图形的方法，接下来使用clip进行绘制图形</h2>
+<h4>clip()方法创建一个新的裁剪路径，默认情况下，canvas有一个和它自身一样大小的裁剪路径（没有裁剪效果）</h4>
+<p>接下来的例子是用圆形的路径限制随即星星的绘制区域</p>
+<canvas id="canvas" style="display: block;margin: 0 auto;"></canvas>
+<script>
+    window.onload = function () {
+        let canvas = document.getElementById('canvas');
+        canvas.width = 800;
+        canvas.height = 800;
+        let ctx = canvas.getContext('2d');
+        draw(ctx);
+    }
+
+    function draw(ctx) {
+        ctx.fillRect(0,0,150,150);
+        ctx.translate(75,75);
+
+        //裁剪一个圆形的路径
+        ctx.beginPath();
+        ctx.arc(0,0,60,0,Math.PI*2,true);//x,y,Radius,起始弧度，结束弧度，逆时针，false默认是顺时针
+        ctx.clip();
+
+        //绘制背景
+        //使用渐变的步骤：1.创建渐变对象createLinearGradient(x1,y1,x2,y2);参数是渐变色两个坐标点，一个起始，第二个是结束／createRadialGradient(x1, y1, r1, x2, y2, r2)；分别是两个圆的圆心坐标与半径
+        var  lingrad = ctx.createLinearGradient(0,-75,0,75);//x1,y1:渐变起始位置；x2,y2:渐变结束位置
+        lingrad.addColorStop(0,'#232256');
+        lingrad.addColorStop(1,'#143778');//2.添加渐变色，position：位置，color：颜色
+
+        ctx.fillStyle = lingrad;//填充样式为渐变色
+        ctx.fillRect(-75,-75,150,150);
+
+        //绘制多个随即位置的星星
+
+        for(let i = 0;i<50;i++){
+            ctx.save();
+            ctx.fillStyle = '#fff';
+            ctx.translate(75-Math.floor(Math.random()*150),75-Math.floor(Math.random()*150));
+            drawStart(ctx,Math.floor(Math.random()*4)+2);
+            ctx.restore();
+        }
+    }
+    function drawStart(ctx,radius) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(radius,0);
+
+        for (let i = 0;i<9;i++){
+            ctx.rotate(Math.PI/5);
+            if(i%2 == 0) {
+                ctx.lineTo((radius/0.525731)*0.200811,0);
+            } else {
+                ctx.lineTo(radius,0);
+            }
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+
+    }
+
+</script>
+</body>
+</html>

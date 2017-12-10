@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DrawLine</title>
+</head>
+<body style="height: 100%;padding: 0;margin: 0;">
+<canvas id="canvas" style="display: block;margin: 0 auto;border: 1px solid #eeeeee;">
+    当前浏览器不支持Canvas，请更换浏览器后再试
+</canvas>
+
+<script>
+var width = 800,height= 800;
+    window.onload = function(){
+
+        var canvas = document.getElementById("canvas");
+
+        canvas.width = width;
+        canvas.height = height;
+
+        var context = canvas.getContext('2d');
+
+        //绘制矩形
+        context.save();
+        context.scale(1,1);
+        context.strokeRect(50,50,100,100);
+        context.restore();
+
+
+        context.save();
+        context.scale(1.5,1.5);
+        context.strokeRect(50,50,200,200);
+        context.restore();
+
+
+        context.save();
+        context.scale(2,2);
+        context.strokeRect(50,50,300,300);
+        context.restore();
+
+
+
+
+
+    }
+    //save（），restore（）状态保存与恢复
+let i =0;
+    function drawStart(context,Radius,x,y,rotate) {
+
+        context.save();
+        let R = Radius;
+        let r = scale*Radius;
+        //绘制在x,y，大小为R,旋转角度的五角星
+        context.translate(x,y);
+
+        context.rotate(rotate/180*Math.PI);
+        startPath(context,R,r);//绘制标准的五角星
+
+
+
+        context.lineWidth = 1;
+        context.fillStyle = '#fb3';
+        context.strokeStyle = '#fd5';
+        context.lineJoin = 'round';
+        context.stroke();
+        context.fill();
+
+        context.restore();
+
+    }
+//绘制标准的五角星
+    function startPath(ctx,R,r) {
+        ctx.beginPath();
+        for(let i =0;i<5;i++){
+            ctx.lineTo(Math.cos((18+i*72)/180*Math.PI)*R,-Math.sin((18+i*72)/180*Math.PI)*R);
+            ctx.lineTo(Math.cos((54+i*72 )/180*Math.PI)*r,-Math.sin((54+i*72)/180*Math.PI)*r);
+        }
+        ctx.closePath();
+
+
+
+    }
+
+
+
+
+</script>
+</body>
+</html>
