@@ -7,15 +7,9 @@ var MARGIN_TOP = 30;
 var balls = [];//存储小球
 const colors = ["#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000"];
 
-<<<<<<< HEAD
 const endDate = new Date();
 endDate.setTime(endDate.getTime()+3600*1000);//一个小时倒计时
-=======
-const endDate = new Date(2017,11,10,18,59,59);//小时只能有两位
-endDate.setTime(endDate.getTime() + 3600*1000);//1970-1-1开始的毫秒数  //距离当前时间再完后推一个小时
 
-
->>>>>>> master
 var curShowTimeSeconds = 0;
 
 window.onload = function () {
@@ -126,7 +120,7 @@ function updateBalls() {
 
     for(let i =0;i<balls.length;i++){
         //左边缘和右边缘
-        if(balls[i].x+Radius > 0 && balls[i].x - Radius>WINDOW_WIDTH){
+        if(balls[i].x+Radius > 0 && balls[i].x - Radius<WINDOW_WIDTH){
             balls[cont++] = balls [i];//nt始终是小于等于i的，把存在屏幕中的元素放在数组的前面，流出的放在后面
         }
 
@@ -211,7 +205,6 @@ function render(ctx) {
     //绘制小球
     for(let i=0;i<balls.length;i++){
         ctx.fillStyle = balls[i].color;
-
         ctx.beginPath();
         ctx.arc(balls[i].x,balls[i].y,Radius,0,2*Math.PI,true);
         ctx.closePath();
