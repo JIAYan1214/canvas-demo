@@ -7,15 +7,10 @@ var MARGIN_TOP = 30;
 var balls = [];//存储小球
 const colors = ["#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000"];
 
-<<<<<<< HEAD
-const endDate = new Date();
-endDate.setTime(endDate.getTime()+3600*1000);//一个小时倒计时
-=======
 const endDate = new Date(2017,11,10,18,59,59);//小时只能有两位
 endDate.setTime(endDate.getTime() + 3600*1000);//1970-1-1开始的毫秒数  //距离当前时间再完后推一个小时
 
 
->>>>>>> master
 var curShowTimeSeconds = 0;
 
 window.onload = function () {
