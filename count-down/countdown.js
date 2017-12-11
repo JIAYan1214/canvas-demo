@@ -165,13 +165,9 @@ function getBallWithColor(x,y,num) {
 function getCurrentShowTimeSeconds() {
 
     var curTime = new  Date();
-<<<<<<< HEAD
     /*var endTime = endDate.getTime() - curTime.getTime();*///定时的效果
     //时钟的效果
-    var hours = curTime.getHours()*3600+curTime.getMinutes()*60+curTime.getSeconds();
 
-    return hours;//Math.round(endTime/1000) >=0 ? Math.round(endTime/1000) : 0
-=======
     /*var endTime = endDate.getTime() - curTime.getTime();
     * return Math.round(endTime/1000) >=0 ? Math.round(endTime/1000) : 0;
     * */
@@ -179,7 +175,6 @@ function getCurrentShowTimeSeconds() {
 
     return endTime;
 
->>>>>>> master
 }
 
 /**
