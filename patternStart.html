@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>图案样式 Patterns</title>
+</head>
+<body style="width: 100%;height: 100%">
+<h1 style="font-size: 20px;">createPattern(image, type)
+    该方法接受两个参数。Image 可以是一个 Image 对象的引用，或者另一个 canvas 对象。Type 必须是下面的字符串值之一：repeat，repeat-x，repeat-y 和 no-repeat。</h1>
+<canvas id="canvas" style="display:block;margin: 0 auto;">
+    当前浏览器不支持Canvas，请更换浏览器后再试
+</canvas>
+<div style="display: none">
+    <img src="img/start.png" id="source" width="106" height="106" alt="">
+</div>
+
+<script>
+    var space = 10;
+    var marginLeft = 20,marginTop = 30,radius = 20,distance = 5;
+    window.onload = function(){
+        var canvas = document.getElementById("canvas");
+        canvas.width = 800;
+        canvas.height =800;
+
+        var context = canvas.getContext('2d');
+
+        var img = document.getElementById('source');
+
+        //图片的中心点 img_width/2,img_height/2
+
+        drawStart(context,img);
+
+    }
+
+    function drawStart(ctx,img) {
+         let Radius = radius+distance;
+        for(let i = 0;i<7;i++){
+            for(let j = 0;j <5;j++){
+                ctx.save();
+                let  marginLeftX = (j*2+1)*(radius+distance+space);
+                let  marginTopY = (i*2+1)*(radius+distance+space);
+
+                ctx.translate(marginLeft+marginLeftX,marginTop+marginTopY);
+                //ctx.scale(Radius,Radius);
+
+                //start(ctx);
+                ctx.drawImage(img,marginLeft+marginLeftX,marginTop+marginTopY,100,100);
+
+                ctx.fillStyle = 'yellow';
+
+                //context.stroke();
+                ctx.fill();
+
+                ctx.restore();
+            }
+        }
+    }
+
+    function drawImg(ctx,img) {
+        let img_width = img.width;
+        let img_height = img.height;
+
+    }
+    
+    function start(context) {
+        context.beginPath();
+        for(let i =0;i<5;i++){
+            context.lineTo(Math.cos((18+i*72)/180*Math.PI),-Math.sin((18+i*72)/180*Math.PI));
+            context.lineTo(Math.cos((54+i*72)/180*Math.PI)*0.5,-Math.sin((54+i*72)/180*Math.PI)*0.5);
+        }
+        context.closePath();
+        //context.lineWidth = 1;
+
+    }
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>利用图形变换绘制星星</title>
+</head>
+<body>
+<canvas id="canvas" style="border:1px solid #aaa;display:block;margin:50px auto;">
+    当前浏览器不支持Canvas，请更换浏览器后再试
+</canvas>
+
+<script>
+    var space = 10;
+    var marginLeft = 30,marginTop = 30,radius = 45,distance = 5;
+    window.onload = function(){
+        var canvas = document.getElementById("canvas");
+
+        canvas.width = 800;
+        canvas.height = 800;
+
+        var context = canvas.getContext('2d');
+        drawRoundRect(context,100,50,200,200,20);
+        drawFillRoundRect(context,320,50,200,200,20,'green');
+        drawStrockRoundRect(context,540,50,200,200,20,5,'red');
+
+
+    }
+    function drawStrockRoundRect(ctx,x,y,width,height,radius,lineWidth,lineColor/*options*/) {
+        if(2*radius > width || 2*radius >height)
+            return;
+
+        ctx.save();
+        ctx.translate(x,y);
+        pathRoundRect(ctx,width,height,radius);
+        ctx.lineWidth = lineWidth || 2;
+        ctx.strokeStyle = lineColor || 'black';
+        ctx.stroke();
+        ctx.restore();
+    }
+    function drawFillRoundRect(ctx,x,y,width,height,radius,fillColor/*options*/) {
+        ctx.save();
+        ctx.translate(x,y);
+        pathRoundRect(ctx,width,height,radius);
+
+        ctx.fillStyle = fillColor || 'black';
+        ctx.fill();
+
+        ctx.restore();
+    }
+    /**
+     *
+     * @param ctx
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param radius
+     */
+   function drawRoundRect(ctx,x,y,width,height,radius) {
+
+        ctx.save();
+        ctx.translate(x,y);
+       pathRoundRect(ctx,width,height,radius);
+
+       ctx.fillStyle = 'black';
+       ctx.stroke();
+
+        ctx.restore();
+   }
+
+   function pathRoundRect(ctx,width,height,radius) {
+        ctx.beginPath();
+        //右下
+        ctx.arc(width-radius,height-radius,radius,0,Math.PI/2);//弧度=radians=(Math.PI/180)*旋转角度
+       ctx.lineTo(radius,height);
+       ctx.arc(radius,height-radius,radius,Math.PI/2,Math.PI);//左下
+       ctx.lineTo(0,radius)
+       ctx.arc(radius,radius,radius,Math.PI,Math.PI*3/2);//左上
+       ctx.lineTo(width-radius,0);
+       ctx.arc(width-radius,radius,radius,Math.PI*3/2,Math.PI*2);//右上
+       ctx.lineTo(width,height-radius);
+        ctx.closePath();
+   }
+
+
+
+</script>
+</body>
+</html>

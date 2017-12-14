@@ -22,16 +22,31 @@
 
         var context = canvas.getContext('2d');
 
+        var radgrad4 = context.createRadialGradient(400,400,0,400,400,300);
+        radgrad4.addColorStop(0, '#fedf2f');
+        radgrad4.addColorStop(0.1, '#fee340');
+        radgrad4.addColorStop(0.3, '#fedf32');
+        radgrad4.addColorStop(0.4, '#fec91a');
+        radgrad4.addColorStop(0.6, '#fec514');
+        radgrad4.addColorStop(1, 'rgba(252,119,47,0.8)');
+        context.fillStyle = radgrad4;
         context.beginPath();
         for(let i =0;i<5;i++){
             context.lineTo(Math.cos((18+i*72)/180*Math.PI)*R+center,-Math.sin((18+i*72)/180*Math.PI)*R + center);
             context.lineTo(Math.cos((54+i*72)/180*Math.PI)*r+center,-Math.sin((54+i*72)/180*Math.PI)*r + center);
         }
+
+
         context.closePath();
-
         context.lineWidth = 5;
+        context.lineJoin = 'round';
 
-        context.stroke();
+
+
+
+
+        //context.stroke();
+        context.fill();
 
 
 

@@ -55,7 +55,7 @@
                       canvasGradient＝createRadialGradient(x1, y1, r1, x2, y2, r2)
                       createRadialGradient 方法接受 6 个参数，前三个定义一个以 (x1,y1) 为原点，半径为 r1 的圆，后三个参数则定义另一个以 (x2,y2) 为原点，半径为 r2 的圆。
                       然后就可以使用addColorStop(position,color)进行填充颜色；addColorStop 方法接受 2 个参数，position 参数必须是一个 0.0 与 1.0 之间的数值，表示渐变中颜色所在的相对位置。
-   </br>7.图案样式Pattern；ctx.createPattern(img,type);该方法接受两个参数。Image 可以是一个 Image 对象的引用，或者另一个 canvas 对象。Type 必须是下面的字符串值之一：repeat，repeat-x，repeat-y 和 no-repeat。</br>
+   </br>7.图案样式Pattern；ctx.createPattern(img,type);该方法接受两个参数。Image 可以是一个 Image 对象的引用，或者另一个 canvas 对象或者一个video。Type 必须是下面的字符串值之一：repeat，repeat-x，repeat-y 和 no-repeat。</br>
    </br>8.阴影shadows的属性：ctx.shadowOffsetX = value;ctx.shawOffsetY = value;shadowOffsetX 和 shadowOffsetY 用来设定阴影在 X 和 Y 轴的延伸距离,负值表示阴影会往上或左延伸，正值则表示会往下或右延伸，它们默认都为 0。
                ctx.shawBlur = value;模糊半径；ctx.shadowColor ＝ color；颜色
    </br>9.填充规则：当我们用到 fill（或者 clip和isPointinPath ）你可以选择一个填充规则，该填充规则根据某处在路径的外面或者里面来决定该处是否被填充，这对于自己与自己路径相交或者路径被嵌套的时候是有用的。

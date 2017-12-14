@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>利用图形变换绘制星星</title>
+</head>
+<body>
+<canvas id="canvas" style="border:1px solid #aaa;display:block;margin:50px auto;">
+    当前浏览器不支持Canvas，请更换浏览器后再试
+</canvas>
+
+<script>
+    var space = 10;
+    var marginLeft = 30,marginTop = 30,radius = 45,distance = 5;
+    window.onload = function(){
+        var canvas = document.getElementById("canvas");
+
+        canvas.width = 1024;
+        canvas.height = 800;
+
+        var context = canvas.getContext('2d');
+
+        var img = new Image();
+        img.src = 'img/start_s.png';
+        img.width = 106;
+        img.height = 106;
+        var pattern = '';
+        img.onload = function () {
+            if(img.complete){
+                pattern = context.createPattern(img,'no-repeat');
+
+               drawStart(context,pattern);
+            }
+        }
+
+
+
+    }
+
+    function drawStart(ctx,pattern) {
+        console.log(pattern)
+         let Radius = radius+distance;
+        for(let i = 0;i<7;i++){
+            for(let j = 0;j <5;j++){
+                ctx.save();
+                let  marginLeftX = (j*2+1)*(radius+distance+space);
+                let  marginTopY = (i*2+1)*(radius+distance+space);
+
+                ctx.fillStyle = pattern;
+                ctx.translate(marginLeft+marginLeftX,marginTop+marginTopY);
+               // ctx.scale(Radius,Radius);
+
+                start(ctx,Radius);
+               // ctx.stroke();
+                ctx.fill();
+
+                ctx.restore();
+            }
+        }
+    }
+
+    function start(context,Radius) {
+        context.beginPath();
+        for(let i =0;i<5;i++){
+            context.lineTo(Math.cos((18+i*72)/180*Math.PI)*Radius,-Math.sin((18+i*72)/180*Math.PI)*Radius);
+            context.lineTo(Math.cos((54+i*72)/180*Math.PI)*0.5*Radius,-Math.sin((54+i*72)/180*Math.PI)*0.5*Radius);
+        }
+        context.closePath();
+        //context.lineWidth = 1;
+
+    }
+
+
+
+</script>
+</body>
+</html>

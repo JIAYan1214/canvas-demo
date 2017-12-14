@@ -25,8 +25,15 @@ var scale = 0.5;
 
         var context = canvas.getContext('2d');
 
+        //径向渐变
+        //var linearG= context.createRadialGradient(width/2,height,0,width/2,height,height);
+        //线性渐变
+        var linearG= context.createLinearGradient(0,0,0,height);
+        linearG.addColorStop(0,'black');
+        linearG.addColorStop(1,'#035');
+
         //绘制矩形
-        context.fillStyle = "black";
+        context.fillStyle =linearG;
         context.fillRect(0,0,canvas.width,canvas.height);
 
         let Radius = 20;
@@ -34,7 +41,7 @@ var scale = 0.5;
         for(let i = 0;i< 200 ;i++){
             let Radius = Math.random()*10+10;//10-20 之间的随机数
             var x = Math.random()*canvas.width;
-            var y = Math.random()*canvas.height;
+            var y = Math.random()*canvas.height*0.65;//屏幕的65%绘制星星
             var rotate = Math.random()*360;
             //存在的问题；星星溢出屏幕的，星星叠加
             drawStart(context,Radius,x,y,rotate);
@@ -52,28 +59,30 @@ let i =0;
         let r = scale*Radius;
         //绘制在x,y，大小为R,旋转角度的五角星
         context.translate(x,y);
+        context.rotate(rotate/180*Math.PI);//旋转  参数是角度，意弧度为单位 radians=(Math.PI/180)*旋转角度
 
-        context.rotate(rotate/180*Math.PI);
+        context.scale(R,R);
         startPath(context,R,r);//绘制标准的五角星
 
 
 
-        context.lineWidth = 1;
+       /* context.lineWidth = 1;
+        context.lineJoin = 'round';*///scale同时会把外边框放大，所以放弃对外边框的编辑
         context.fillStyle = '#fb3';
-        context.strokeStyle = '#fd5';
-        context.lineJoin = 'round';
-        context.stroke();
+       // context.strokeStyle = '#fd5';
+
+        //context.stroke();
         context.fill();
 
         context.restore();
 
     }
 //绘制标准的五角星
-    function startPath(ctx,R,r) {
+    function startPath(ctx) {
         ctx.beginPath();
         for(let i =0;i<5;i++){
-            ctx.lineTo(Math.cos((18+i*72)/180*Math.PI)*R,-Math.sin((18+i*72)/180*Math.PI)*R);
-            ctx.lineTo(Math.cos((54+i*72 )/180*Math.PI)*r,-Math.sin((54+i*72)/180*Math.PI)*r);
+            ctx.lineTo(Math.cos((18+i*72)/180*Math.PI),-Math.sin((18+i*72)/180*Math.PI));
+            ctx.lineTo(Math.cos((54+i*72 )/180*Math.PI)*0.5,-Math.sin((54+i*72)/180*Math.PI)*0.5);
         }
         ctx.closePath();
 
