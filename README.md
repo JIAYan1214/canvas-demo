@@ -48,7 +48,7 @@
 >  1.fillStyle = color;填充颜色</br>
    2.strokeStyle ＝ color；图形轮廓颜色</br>
    3.透明度globalAlpha = 透明度的数值；
-   4.rgba设置颜色和透明度</br>
+   4.rgba设置颜色和透明度globalAlpha</br>
    </br>5.上一部分线性的属性不在赘述</br>
    </br>6.渐变Gradients；新建一个canvasGradient对象；canvasGradient＝createLinearGradient(x1, y1, x2, y2)
                       createLinearGradient 方法接受 4 个参数，表示渐变的起点 (x1,y1) 与终点 (x2,y2)。
@@ -84,5 +84,10 @@
 >  1.globalCompositeOperation = type;这个属性设定了在绘制新的图形采用遮盖的策略；其值是一个标识12种遮盖方式的字符串；
    
 # 裁剪
-> 1.裁剪路径不会在canvas上面绘制新的图形；而且它永远不会受新的图形的影响，这个特性在制定区域绘图很好用；
+> 1.裁剪路径不会在canvas上面绘制新的图形；而且它永远不会受新的图形的影响，这个特性在制定区域绘图很好用；</br>
   2.绘制图形在之前只介绍了fill，stroke两种方法，第三个方法是clip裁剪
+
+## 绘制文字
+>ctx.font = string;</br>
+ ctx.fillText(string,x,y,[maxLen]);最后一个参数可选</br>
+ ctx.strokeText(string,x,y,[maxLen]);最后一个参数可选

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>clip的用法</title>
+</head>
+<body>
+<h2>之前已经了解了fill；stroke两种绘制图形的方法，接下来使用clip进行绘制图形</h2>
+<h4>clip()方法创建一个新的裁剪路径，默认情况下，canvas有一个和它自身一样大小的裁剪路径（没有裁剪效果）</h4>
+<p>接下来的例子是用圆形的路径限制随即星星的绘制区域</p>
+<canvas id="canvas" style="display: block;margin: 0 auto;"></canvas>
+<script>
+    window.onload = function () {
+        let canvas = document.getElementById('canvas');
+        canvas.width = 800;
+        canvas.height = 800;
+        let ctx = canvas.getContext('2d');
+        draw1(canvas,ctx);
+    }
+
+    function draw1(canvas,ctx) {
+        ctx.beginPath();
+        ctx.fillStyle = 'black';
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+
+
+        ctx.beginPath();
+        ctx.fillStyle = '#fff';
+        ctx.arc(400,400,150,0,2*Math.PI,false);
+        ctx.fill();
+        ctx.clip();//把绘制的图形裁剪出来
+
+
+        ctx.font = 'bold 150px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#058';
+        ctx.fillText('canvas',canvas.width/2,canvas.height/2);
+    }
+
+
+</script>
+</body>
+</html>

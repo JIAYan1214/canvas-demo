@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>贝塞尔曲线三次曲线</title>
+</head>
+<body>
+<canvas id="canvas" style="border:1px solid #aaa;display:block;margin:50px auto;">
+    当前浏览器不支持Canvas，请更换浏览器后再试
+</canvas>
+
+<script>
+    var space = 10;
+    var marginLeft = 30,marginTop = 30,radius = 45,distance = 5;
+    window.onload = function(){
+        var canvas = document.getElementById("canvas");
+
+        canvas.width = 800;
+        canvas.height = 800;
+
+        var context = canvas.getContext('2d');
+        context.beginPath();
+        context.moveTo(50,50);
+        context.bezierCurveTo(90,200,200,20,280,150);//x1,y1,控制点一  x2,y2,控制点2，x3,y3结束点
+        context.stroke();
+
+    }
+
+
+</script>
+</body>
+</html>
