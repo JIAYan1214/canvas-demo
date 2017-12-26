@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>利用图形变换绘制星星</title>
+</head>
+<body>
+<canvas id="canvas" style="border:1px solid #aaa;display:block;margin:50px auto;">
+    当前浏览器不支持Canvas，请更换浏览器后再试
+</canvas>
+<canvas id="canvas2" style="border:1px solid #aaa;display:block;margin:50px auto;">
+    当前浏览器不支持Canvas，请更换浏览器后再试
+</canvas>
+<img src="img/start_s.png" id="start" alt="">
+<img src="img/sel_s.png" id="sel" alt="">
+
+<script>
+    var marginLeft = 10, marginTop = 30, radius = 30, space = 10, Radius = 30;
+
+    var ball = [];
+    var img = new Image();
+
+    window.onload = function () {
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        canvas.width = 1024;
+        canvas.height = 800;
+
+        /*img.onload = function () {
+            if(img.complete){
+                proCenter();
+            }
+        }
+        img.src = 'img/start_s.png';*/
+        var canvas2 = document.getElementById('canvas');
+        var ctx2 = canvas.getContext('2d');
+        ctx2.fillStyle = 'green';
+        canvas.width = 800;
+        canvas.height = 800;
+        ctx2.fillRect(200,200,100,100);
+        ctx2.clearRect(250,250,10,10);
+
+        proCenter();
+
+        function proCenter() {
+            for (let i =0;i<7;i++){
+                for (let j = 0; j < 5; j++) {
+                    /*x2:(j+1)*marginLeft+(2*j+1)*radius-Math.sqrt(2)/2*radius,
+                        y2:(i+1)*marginTop+(2*i+1)*radius-Math.sqrt(2)/2*radius
+                        内切图标
+                        */
+                    var aBall = {
+                        x: marginLeft + (j * 2 + 1) * (radius + space),
+                        y: marginTop + (i * 2 + 1) * (radius + space),
+                        x2:marginLeft + (j * 2 + 1) * (radius + space)-radius,
+                        y2: marginTop + (i * 2 + 1) * (radius + space)-radius
+                    }
+                    ball.push(aBall);
+                }
+            }
+            drawCircle();
+            canvas.addEventListener('click', move,false);
+        }
+        function drawCircle(x, y) {
+
+            for (let i = 0; i < ball.length; i++) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.fillStyle = 'transparent';
+
+                ctx.arc(ball[i].x, ball[i].y, Radius, 0, 2 * Math.PI, false);
+                if (ctx.isPointInPath(x, y)) {
+
+                   img = document.getElementById('sel');
+                    ctx.clearRect(ball[i].x2,ball[i].y2,2*Radius,2*Radius);
+                }else{
+                    img = document.getElementById('start');
+                }
+                ctx.drawImage(img,ball[i].x2,ball[i].y2,2*Radius,2*Radius);
+
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+
+            }
+        }
+
+        function move(event) {
+            var x = event.clientX - canvas.getBoundingClientRect().left;
+            var y = event.clientY - canvas.getBoundingClientRect().top;
+            console.log(ctx.isPointInPath(x, y))
+            drawCircle(x, y);
+        }
+
+    }
+</script>
+</body>
+</html>
+/*Draw.prototype.createStart = function (arr,x,y) {
+this.ctx.clearRect(arr.x,arr.y, 2*this.radius,2*this.radius);
+let img = this.img;
+this.ctx.save();
+this.ctx.beginPath();
+this.ctx.fillStyle = 'transparent';
+this.ctx.arc(arr.x,arr.y, this.radius, 0, 2 * Math.PI, false);
+if(this.ctx.isPointInPath(x,y)){
+img = this.selImg;
+}else{
+img = this.img;
+}
+this.ctx.drawImage(img,arr.x2,arr.y2,2*this.radius,2*this.radius);
+this.ctx.closePath();
+this.ctx.fill();
+this.ctx.restore();
+}*/

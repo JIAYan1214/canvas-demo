@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <title>start</title>
+    <script src="js/rem.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<section class="wrapper" style="background-color: antiquewhite;width: 100%;height: 100%;">
+    <div style="margin: 0 auto;text-align: center" id="cont">
+
+    </div>
+    <div style="display: none"><img src="css/start_s.png" id="start" alt="" >
+        <img src="css/sel_s.png" id="sel" alt=" ">
+        <img src="css/stone.png" id="stone" alt=" ">
+    </div>
+</section>
+<script src="js/draw.js"></script>
+<script>
+    (function (doc,win) {
+            var resizeEvt = 'orientationchange' in window ? 'orientationchange' :'resize',
+            recalc = function () {
+                var rotate = 100*(document.documentElement.clientWidth/750);
+                var width = document.getElementById('cont').style.width.split('r')[0],
+                    height = document.getElementById('cont').style.height.split('r')[0];
+                var count = document.getElementById('cont').childElementCount;
+                if(count){
+                    document.getElementById('cont').innerHTML = '';
+                }
+                new Draw({
+                    ele:'#cont',
+                    width:document.body.clientWidth-60,//向下取整,计算canvas屏幕原有尺寸Math.round(rotate*width)
+                    height:document.documentElement.clientHeight*5/7,//Math.round(rotate*height)
+                    matrix:[[4,7],[4,6],[5,7]],
+                    img:doc.getElementById('start'),
+                    selImg:doc.getElementById('sel'),
+                    stone:document.getElementById('stone'),
+                    step:3
+                }).init();
+            }
+        if(!doc.addEventListener) return;
+        win.addEventListener(resizeEvt,recalc,false);
+        doc.addEventListener('DOMContentLoaded',recalc,false);
+    })(document,window)
+
+</script>
+</body>
+</html>

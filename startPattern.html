@@ -8,6 +8,7 @@
 <canvas id="canvas" style="border:1px solid #aaa;display:block;margin:50px auto;">
     当前浏览器不支持Canvas，请更换浏览器后再试
 </canvas>
+<img src="https://mdn.mozillademos.org/files/5397/rhino.jpg" alt="">
 
 <script>
     var space = 10;
@@ -21,7 +22,7 @@
         var context = canvas.getContext('2d');
 
         var img = new Image();
-        img.src = 'img/start_s.png';
+
         img.width = 106;
         img.height = 106;
         var pattern = '';
@@ -32,21 +33,28 @@
                drawStart(context,pattern);
             }
         }
+        //img.src = 'img/start_s.png';
 
+       // drawStart(context);
+        /*var img = new Image();
+        img.onload = function(){
+            drawStart(context,img);
+
+        };
+        */
+        img.src = 'https://mdn.mozillademos.org/files/5397/rhino.jpg';
 
 
     }
 
-    function drawStart(ctx,pattern) {
-        console.log(pattern)
+    function drawStart(ctx,img) {
          let Radius = radius+distance;
         for(let i = 0;i<7;i++){
             for(let j = 0;j <5;j++){
                 ctx.save();
                 let  marginLeftX = (j*2+1)*(radius+distance+space);
                 let  marginTopY = (i*2+1)*(radius+distance+space);
-
-                ctx.fillStyle = pattern;
+                ctx.fillStyle = img;
                 ctx.translate(marginLeft+marginLeftX,marginTop+marginTopY);
                // ctx.scale(Radius,Radius);
 
@@ -66,6 +74,8 @@
             context.lineTo(Math.cos((54+i*72)/180*Math.PI)*0.5*Radius,-Math.sin((54+i*72)/180*Math.PI)*0.5*Radius);
         }
         context.closePath();
+
+
         //context.lineWidth = 1;
 
     }

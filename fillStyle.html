@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>canvas</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+            outline: none;
+            border: none;
+        }
+        #canvas{
+            width: 7rem;
+            margin: .25rem 0 0 1.5rem;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas" width="1000" height="600"></canvas>
+</body>
+</html>
+<script type="text/javascript">
+    /**
+     * rem 布局初始化
+     */
+    //document.getElementsByTagName('html').style.fontSize = window.width/10;
+    /**
+     * 获取 canvas 画布
+     * 获取 canvas 绘图上下文环境
+     */
+    var canvas =document.getElementById('canvas');
+    var cxt = canvas.getContext('2d');
+
+    /**
+     * 创建图片填充样式
+     * 一: createPattern( 图片对象, 重复方式 )
+     * 二: createPattern( canvas对象, 重复方式)
+     * 三: createPattern( 视频对象, 重复方式)
+     */
+
+    /*
+    var img = new Image();
+    img.src = "../img/favicon.ico";
+    img.onload = function(){
+        var pattern = cxt.createPattern(img, "repeat");
+        cxt.fillStyle = pattern;
+        cxt.fillRect(0, 0, 1000, 600);
+    }
+    */
+
+    var fiveStartPath = function(cxt){
+        cxt.beginPath();
+        var x = 0; y = 0;
+        for(var i = 0; i < 5; i++){
+            x = Math.cos((18+72*i)/180*Math.PI);
+            y = Math.sin((18+72*i)/180*Math.PI);
+            cxt.lineTo(x, 0-y);
+            x = Math.cos((54+72*i)/180*Math.PI)/2.0;
+            y = Math.sin((54+72*i)/180*Math.PI)/2.0;
+            cxt.lineTo(x, 0-y);
+        }
+        cxt.closePath();
+    }
+
+    var drawFiveStar = function(cxt, fiveStart){
+        cxt.save();
+        cxt.translate(fiveStart.offsetX, fiveStart.offsetY);
+        cxt.rotate(fiveStart.RotationAngle/180*Math.PI);
+        cxt.scale(fiveStart.Radius, fiveStart.Radius);
+        fiveStartPath(cxt);
+        cxt.fillStyle = "yellow";
+        cxt.fill();
+        cxt.restore();
+    }
+
+    var createCanvas = function(){
+        var canvas = document.createElement("canvas");
+        canvas.width = 100;
+        canvas.height = 100;
+        var cxt = canvas.getContext('2d');
+        var fiveStart = {
+            Radius: 50,
+            offsetX: 50,
+            offsetY: 50,
+            RotationAngle: 0
+        }
+        drawFiveStar(cxt, fiveStart);
+        return canvas;
+    }
+
+    var canvasBackground = createCanvas();
+    var patten = cxt.createPattern(canvasBackground, "repeat");
+    cxt.fillStyle = patten;
+    cxt.fillRect(0, 0, 1000, 600);
+</script>
